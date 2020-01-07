@@ -33,6 +33,7 @@ const UpdateCoursePage = (props: Props) => {
         e.preventDefault();
         courseApi.saveCourse(course).then(() => {
             toast.success('Course saved.');
+            props.history.push('/courses');
         }, () => {
             toast.error('Something error happened while saving the course.');
         });

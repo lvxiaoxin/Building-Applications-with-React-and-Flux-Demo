@@ -10,7 +10,7 @@
     {
       "id": 2,
       "title": "React: The Big Picture",
-      "slug": "react-big-picture",
+      "slug": "React:-The-Big-Picture",
       "authorId": 1,
       "category": "JavaScript"
     },
@@ -38,9 +38,9 @@
     {
       "id": 6,
       "title": "Building Applications in React and Flux",
-      "slug": "react-flux-building-applications",
+      "slug": "Building-Applications-in-React-and-Flux",
       "authorId": 1,
-      "category": "JavaScript"
+      "category": "TypeScript"
     },
     {
       "id": 7,
