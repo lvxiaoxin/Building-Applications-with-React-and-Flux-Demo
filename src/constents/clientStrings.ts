@@ -8,5 +8,6 @@ export const labelStrings = {
     seperateCharacter: '|',
     addCourse: 'Add Course',
     author: 'author',
-    submit: 'Submit'
+    submit: 'Submit',
+    delete: 'Delete'
 }

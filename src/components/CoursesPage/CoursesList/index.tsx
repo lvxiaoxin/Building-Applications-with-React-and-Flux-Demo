@@ -5,7 +5,8 @@ import { labelStrings } from '../../../constents/clientStrings';
 import { ICourse } from '../../../model/course';
 
 interface Props {
-    courses: ICourse[]
+    courses: ICourse[];
+    DeleteCourse: (courseId: number) => void;
 }
 
 const CoursesList = (props: Props) => {
@@ -13,6 +14,7 @@ const CoursesList = (props: Props) => {
         <table className='table'>
             <thead>
                 <tr>
+                    <th>&nbsp;</th>
                     <th>{labelStrings.title}</th>
                     <th>{labelStrings.authorId}</th>
                     <th>{labelStrings.category}</th>
@@ -22,6 +24,14 @@ const CoursesList = (props: Props) => {
                 {props.courses.map((course: ICourse) => {
                     return (
                         <tr key={course.id}>
+                            <td>
+                                <button
+                                    className='btn btn-outline-danger'
+                                    onClick={() => { props.DeleteCourse(course.id) }}
+                                >
+                                    {labelStrings.delete}
+                                </button>
+                            </td>
                             <td>
                                 <Link to={'/update-course/' + course.slug}>{course.title}</Link>
                             </td>

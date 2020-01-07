@@ -5,6 +5,7 @@ import * as coursesApi from '../../api/courseApi';
 import { labelStrings } from '../../constents/clientStrings';
 import { ICourse } from '../../model/course';
 import CoursesList from './CoursesList';
+import { toast } from 'react-toastify';
 
 interface Props {
 }
@@ -14,7 +15,14 @@ const CoursesPage = (props: Props) => {
 
     React.useEffect(() => {
         coursesApi.getCourse().then((newCourses: ICourse[]) => setCourses(newCourses));
-    }, [])
+    }, []);
+
+    const DeleteHandler = (courseId: number) => {
+        coursesApi.deleteCourse(courseId).then(() => {
+            toast.warn('You just delete a course!');
+            coursesApi.getCourse().then((newCourses: ICourse[]) => setCourses(newCourses));
+        });
+    }
 
     return (
         <>
@@ -22,7 +30,7 @@ const CoursesPage = (props: Props) => {
             <Link to='/update-course'>
                 <button className='btn btn-success'>{labelStrings.addCourse}</button>
             </Link>
-            <CoursesList courses={courses} />
+            <CoursesList courses={courses} DeleteCourse={DeleteHandler} />
         </>
     );
 };
