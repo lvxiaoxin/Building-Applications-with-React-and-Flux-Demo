@@ -2,63 +2,40 @@ import React from 'react';
 
 import { labelStrings } from '../../../constents/clientStrings';
 import { ICourse } from '../../../model/course';
-import TextInput from '../../Common/TextInput';
 import SelectInput from '../../Common/SelectInput';
-import * as courseApi from "../../../api/courseApi";
-import { toast } from "react-toastify";
+import TextInput from '../../Common/TextInput';
 
 interface Props {
+    course: ICourse;
+    onChangeHandler: (e: React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLSelectElement>) => void;
+    onSubmitHandler: (e: React.FormEvent<HTMLFormElement>) => void;
 }
 
 const CourseForm = (props: Props) => {
-    const [course, setCourse] = React.useState<ICourse>({
-        id: NaN,
-        slug: '',
-        title: '',
-        authorId: NaN,
-        category: ''
-    });
-
-    const onChangeHandler = (e: React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLSelectElement>) => {
-        setCourse({
-            ...course,
-            [e.target.name]: e.target.value
-        });
-    }
-
-    const onSubmitHandler = (e: React.FormEvent<HTMLFormElement>) => {
-        e.preventDefault();
-        courseApi.saveCourse(course).then(() => {
-            toast.success('Course saved.');
-        }, () => {
-            toast.error('Something error happened while saving the course.');
-        })
-    }
-
     return (
-        <form onSubmit={onSubmitHandler}>
+        <form onSubmit={props.onSubmitHandler}>
             <TextInput
                 id='title'
                 label={labelStrings.title}
-                onChange={onChangeHandler}
+                onChange={props.onChangeHandler}
                 name='title'
-                value={course.title}
+                value={props.course.title}
             />
 
             <SelectInput
                 id='author'
                 label={labelStrings.author}
-                onChange={onChangeHandler}
+                onChange={props.onChangeHandler}
                 name='authorId'
-                value={course.authorId}
+                value={props.course.authorId}
             />
 
             <TextInput
                 id='category'
                 label={labelStrings.category}
-                onChange={onChangeHandler}
+                onChange={props.onChangeHandler}
                 name='category'
-                value={course.category}
+                value={props.course.category}
             />
 
             <button type='submit' value='Save' className='btn btn-primary'>{labelStrings.submit}</button>

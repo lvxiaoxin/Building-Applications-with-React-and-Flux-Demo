@@ -1,6 +1,8 @@
 import React from 'react';
-import { ICourse } from '../../../model/course';
+import { Link } from 'react-router-dom';
+
 import { labelStrings } from '../../../constents/clientStrings';
+import { ICourse } from '../../../model/course';
 
 interface Props {
     courses: ICourse[]
@@ -20,14 +22,16 @@ const CoursesList = (props: Props) => {
                 {props.courses.map((course: ICourse) => {
                     return (
                         <tr key={course.id}>
-                            <td>{course.title}</td>
+                            <td>
+                                <Link to={'/update-course/' + course.slug}>{course.title}</Link>
+                            </td>
                             <td>{course.authorId}</td>
                             <td>{course.category}</td>
                         </tr>
                     );
                 })}
             </tbody>
-        </table>
+        </table >
     );
 };
 
