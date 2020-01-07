@@ -12,13 +12,13 @@ const Header = (props: Props) => {
             <NavLink activeStyle={activeStyle} exact to='/'>
                 {labelStrings.home}
             </NavLink>
-            {' ' + labelStrings.SeperateCharacter + ' '}
+            {' ' + labelStrings.seperateCharacter + ' '}
             <NavLink activeStyle={activeStyle} to='/courses'>
-                {labelStrings.Courses}
+                {labelStrings.courses}
             </NavLink>
-            {' ' + labelStrings.SeperateCharacter + ' '}
+            {' ' + labelStrings.seperateCharacter + ' '}
             <NavLink activeStyle={activeStyle} to='/about'>
-                {labelStrings.About}
+                {labelStrings.about}
             </NavLink>
         </nav>
     );

@@ -18,9 +18,9 @@ const CoursesPage = (props: Props) => {
 
     return (
         <>
-            <h2>{labelStrings.Courses}</h2>
+            <h2>{labelStrings.courses}</h2>
             <Link to='/update-course'>
-                <button className='btn btn-success'>{labelStrings.AddCourse}</button>
+                <button className='btn btn-success'>{labelStrings.addCourse}</button>
             </Link>
             <CoursesList courses={courses} />
         </>

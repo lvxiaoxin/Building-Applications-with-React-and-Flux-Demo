@@ -3,9 +3,10 @@ export const labelStrings = {
     authorId: 'Author Id',
     category: 'Category',
     home: 'Home',
-    Courses: 'Courses',
-    About: 'About',
-    SeperateCharacter: '|',
-    AddCourse: 'Add Course',
-    author: 'author'
+    courses: 'Courses',
+    about: 'About',
+    seperateCharacter: '|',
+    addCourse: 'Add Course',
+    author: 'author',
+    submit: 'Submit'
 }

@@ -9,7 +9,7 @@ interface Props {
 const UpdateCoursePage = (props: Props) => {
     return (
         <>
-            <h2>{labelStrings.AddCourse}</h2>
+            <h2>{labelStrings.addCourse}</h2>
             <CourseForm />
         </>
     );

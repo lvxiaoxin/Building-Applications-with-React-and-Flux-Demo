@@ -4,16 +4,17 @@ import { labelStrings } from '../../../constents/clientStrings';
 import { ICourse } from '../../../model/course';
 import TextInput from '../../Common/TextInput';
 import SelectInput from '../../Common/SelectInput';
+import * as courseApi from "../../../api/courseApi";
 
 interface Props {
 }
 
 const CourseForm = (props: Props) => {
     const [course, setCourse] = React.useState<ICourse>({
-        id: -1,
+        id: NaN,
         slug: '',
         title: '',
-        authorId: -1,
+        authorId: NaN,
         category: ''
     });
 
@@ -24,8 +25,13 @@ const CourseForm = (props: Props) => {
         });
     }
 
+    const onSubmitHandler = (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+        courseApi.saveCourse(course);
+    }
+
     return (
-        <form>
+        <form onSubmit={onSubmitHandler}>
             <TextInput
                 id='title'
                 label={labelStrings.title}
@@ -42,6 +48,15 @@ const CourseForm = (props: Props) => {
                 value={course.authorId}
             />
 
+            <TextInput
+                id='category'
+                label={labelStrings.category}
+                onChange={onChangeHandler}
+                name='category'
+                value={course.category}
+            />
+
+            <button type='submit' value='Save' className='btn btn-primary'>{labelStrings.submit}</button>
         </form>
     );
 };
