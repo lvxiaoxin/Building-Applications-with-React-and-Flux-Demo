@@ -1,12 +1,12 @@
 import React from 'react';
+import { RouteComponentProps } from 'react-router-dom';
 import { toast } from 'react-toastify';
 
-import * as courseApi from '../../api/courseApi';
+import * as courseActions from '../../actions/courseActions';
 import { labelStrings } from '../../constents/clientStrings';
 import { ICourse } from '../../model/course';
+import courseStore from '../../stores/courseStore';
 import CourseForm from './CourseForm';
-import { RouteComponentProps } from 'react-router-dom';
-import * as courseActions from "../../actions/courseActions";
 
 interface IMatchParams {
     slug: string;
@@ -22,6 +22,7 @@ const UpdateCoursePage = (props: Props) => {
         authorId: NaN,
         category: ''
     });
+    const [courses, setCourses] = React.useState<ICourse[]>(courseStore.getCourseStore());
 
     const onChangeHandler = (e: React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLSelectElement>) => {
         setCourse({
@@ -41,11 +42,22 @@ const UpdateCoursePage = (props: Props) => {
     }
 
     React.useEffect(() => {
+        courseStore.addChangeListener(onChange);
         const slug = props.match.params.slug;
-        if (slug) {
-            courseApi.getCourseBySlug(slug).then((result: ICourse) => setCourse(result));
+        if (courses.length === 0) {
+            courseActions.loadCourses();
+        } else if (slug) {
+            debugger;
+            const newCourse = courseStore.getCourseStoreBySlug(slug);
+            if (newCourse) {
+                setCourse(newCourse);
+            }
         }
-    }, [props.match.params.slug])
+    }, [props.match.params.slug, courses.length]);
+
+    function onChange() {
+        setCourses(courseStore.getCourseStore());
+    }
 
     return (
         <>

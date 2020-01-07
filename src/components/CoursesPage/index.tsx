@@ -1,26 +1,36 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { toast } from 'react-toastify';
 
-import * as coursesApi from '../../api/courseApi';
+import * as courseActions from '../../actions/courseActions';
 import { labelStrings } from '../../constents/clientStrings';
 import { ICourse } from '../../model/course';
+import courseStore from '../../stores/courseStore';
 import CoursesList from './CoursesList';
-import { toast } from 'react-toastify';
 
 interface Props {
 }
 
 const CoursesPage = (props: Props) => {
-    const [courses, setCourses] = React.useState<ICourse[]>([]);
+    const [courses, setCourses] = React.useState<ICourse[]>(courseStore.getCourseStore());
 
     React.useEffect(() => {
-        coursesApi.getCourse().then((newCourses: ICourse[]) => setCourses(newCourses));
+        debugger;
+        courseStore.addChangeListener(onChange);
+        if (courseStore.getCourseStore().length === 0) {
+            courseActions.loadCourses();
+        }
+        return () => courseStore.removeChangeListener(onChange);
     }, []);
 
+    function onChange() {
+        debugger;
+        setCourses(courseStore.getCourseStore());
+    }
+
     const DeleteHandler = (courseId: number) => {
-        coursesApi.deleteCourse(courseId).then(() => {
+        courseActions.deleteCourse(courseId).then(() => {
             toast.warn('You just delete a course!');
-            coursesApi.getCourse().then((newCourses: ICourse[]) => setCourses(newCourses));
         });
     }
 

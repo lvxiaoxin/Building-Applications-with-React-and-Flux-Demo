@@ -1,6 +1,7 @@
-import { handleResponse, handleError } from './apiUtils';
-import { ICourse } from '../model/course';
 import * as _ from 'lodash';
+
+import { ICourse } from '../model/course';
+import { handleError, handleResponse } from './apiUtils';
 
 const baseUrl = process.env.REACT_APP_API_URL + '/courses/';
 

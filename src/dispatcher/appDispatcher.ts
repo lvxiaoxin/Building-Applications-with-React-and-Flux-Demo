@@ -1,6 +1,4 @@
 import { Dispatcher } from 'flux';
 
-import { ICourseAction } from '../model/courseAction';
-
-const dispatcher = new Dispatcher<ICourseAction>();
+const dispatcher = new Dispatcher<any>();
 export default dispatcher;
