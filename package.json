@@ -23,7 +23,7 @@
   },
   "scripts": {
     "start": "run-p start:dev start:api",
-    "start:api": "json-server mock/db.json --port 3001",
+    "start:api": "json-server --watch mock/db.json --port 3001",
     "start:dev": "cross-env REACT_APP_API_URL=http://localhost:3001 react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",

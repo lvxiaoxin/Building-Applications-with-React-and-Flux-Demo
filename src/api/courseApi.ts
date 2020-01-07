@@ -22,7 +22,8 @@ export const saveCourse = (course: ICourse) => {
         headers: { 'content-type': "application/json" },
         body: JSON.stringify({
             ...course,
-            authorId: _.isString(course.authorId) ? parseInt(course.authorId, 10) : course.authorId
+            authorId: _.isString(course.authorId) ? parseInt(course.authorId, 10) : course.authorId,
+            slug: course.title.trim().split(' ').join('-')
         })
     }).then(handleResponse).catch(handleError)
 }

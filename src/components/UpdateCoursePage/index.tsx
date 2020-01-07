@@ -5,8 +5,12 @@ import * as courseApi from '../../api/courseApi';
 import { labelStrings } from '../../constents/clientStrings';
 import { ICourse } from '../../model/course';
 import CourseForm from './CourseForm';
+import { RouteComponentProps } from 'react-router-dom';
 
-interface Props {
+interface IMatchParams {
+    slug: string;
+}
+interface Props extends RouteComponentProps<IMatchParams> {
 }
 
 const UpdateCoursePage = (props: Props) => {
@@ -31,8 +35,15 @@ const UpdateCoursePage = (props: Props) => {
             toast.success('Course saved.');
         }, () => {
             toast.error('Something error happened while saving the course.');
-        })
+        });
     }
+
+    React.useEffect(() => {
+        const slug = props.match.params.slug;
+        if (slug) {
+            courseApi.getCourseBySlug(slug).then((result: ICourse) => setCourse(result));
+        }
+    }, [props.match.params.slug])
 
     return (
         <>

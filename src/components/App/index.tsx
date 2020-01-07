@@ -23,7 +23,7 @@ const App = (props: Props) => {
                 <Route path='/' exact component={HomePage} />
                 <Route path='/courses' exact component={CoursesPage} />
                 <Route path='/about' exact component={About} />
-                <Route path='update-course/:slug' exact component={UpdateCoursePage} />
+                <Route path='/update-course/:slug' component={UpdateCoursePage} />
                 <Route path='/update-course' exact component={UpdateCoursePage} />
                 <Redirect from='/about-page' to='/about' />
                 <Route component={PageNotFound} />
