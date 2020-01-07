@@ -9,3 +9,7 @@ The original course was in JavaScript. I implemented it with TypeScript, and I a
 To run this app, just type `npm start` after your installed the relevant packages.
 
 The mock API will be in http://localhost:3001/..., the app will run in http://localhost:3000/
+
+---
+
+![Flux data flow](images/dataFlow.png)

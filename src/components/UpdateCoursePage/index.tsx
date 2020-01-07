@@ -6,6 +6,7 @@ import { labelStrings } from '../../constents/clientStrings';
 import { ICourse } from '../../model/course';
 import CourseForm from './CourseForm';
 import { RouteComponentProps } from 'react-router-dom';
+import * as courseActions from "../../actions/courseActions";
 
 interface IMatchParams {
     slug: string;
@@ -31,7 +32,7 @@ const UpdateCoursePage = (props: Props) => {
 
     const onSubmitHandler = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        courseApi.saveCourse(course).then(() => {
+        courseActions.saveCourse(course).then(() => {
             toast.success('Course saved.');
             props.history.push('/courses');
         }, () => {
