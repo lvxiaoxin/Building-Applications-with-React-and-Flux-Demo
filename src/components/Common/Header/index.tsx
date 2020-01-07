@@ -8,7 +8,7 @@ interface Props {
 const Header = (props: Props) => {
     const activeStyle = { color: 'orange' };
     return (
-        <nav>
+        <nav className='navbar navbar-light bg-light'>
             <NavLink activeStyle={activeStyle} exact to='/'>
                 {labelStrings.home}
             </NavLink>

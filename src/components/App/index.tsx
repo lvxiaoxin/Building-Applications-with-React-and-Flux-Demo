@@ -6,13 +6,16 @@ import PageNotFound from '../PageNotFound';
 import CoursesPage from '../CoursesPage';
 import Header from '../Common/Header';
 import UpdateCoursePage from '../UpdateCoursePage/index';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 interface Props {
 }
 
 const App = (props: Props) => {
     return (
-        <div className='container-fluid'>
+        <div className='container'>
+            <ToastContainer autoClose={3000} />
             <Header />
             <Switch>
                 <Route path='/' exact component={HomePage} />

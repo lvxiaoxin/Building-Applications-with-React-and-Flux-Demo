@@ -5,6 +5,7 @@ import { ICourse } from '../../../model/course';
 import TextInput from '../../Common/TextInput';
 import SelectInput from '../../Common/SelectInput';
 import * as courseApi from "../../../api/courseApi";
+import { toast } from "react-toastify";
 
 interface Props {
 }
@@ -27,7 +28,11 @@ const CourseForm = (props: Props) => {
 
     const onSubmitHandler = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        courseApi.saveCourse(course);
+        courseApi.saveCourse(course).then(() => {
+            toast.success('Course saved.');
+        }, () => {
+            toast.error('Something error happened while saving the course.');
+        })
     }
 
     return (
