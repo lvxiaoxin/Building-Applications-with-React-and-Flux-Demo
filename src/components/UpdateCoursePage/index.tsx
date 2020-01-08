@@ -7,6 +7,7 @@ import { labelStrings } from '../../constents/clientStrings';
 import { ICourse } from '../../model/course';
 import courseStore from '../../stores/courseStore';
 import CourseForm from './CourseForm';
+import { IError } from '../../model/error';
 
 interface IMatchParams {
     slug: string;
@@ -23,6 +24,7 @@ const UpdateCoursePage = (props: Props) => {
         category: ''
     });
     const [courses, setCourses] = React.useState<ICourse[]>(courseStore.getCourseStore());
+    const [errors, setErrors] = React.useState<IError[]>([]);
 
     const onChangeHandler = (e: React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLSelectElement>) => {
         setCourse({
@@ -31,14 +33,40 @@ const UpdateCoursePage = (props: Props) => {
         });
     }
 
+    const isValidToUpdate = (): boolean => {
+        let newError: IError[] = [];
+        if (!course.title) {
+            newError = newError.concat([{
+                errorName: 'title',
+                errorMessage: 'Title should not be empty.'
+            }]);
+        }
+        if (!course.authorId) {
+            newError = newError.concat([{
+                errorName: 'author',
+                errorMessage: 'Author should not be empty.'
+            }]);
+        }
+        if (!course.category) {
+            newError = newError.concat([{
+                errorName: 'category',
+                errorMessage: 'Category should not be empty.'
+            }]);
+        }
+        setErrors(newError);
+        return Object.keys(newError).length === 0;
+    }
+
     const onSubmitHandler = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        courseActions.saveCourse(course).then(() => {
-            toast.success('Course saved.');
-            props.history.push('/courses');
-        }, () => {
-            toast.error('Something error happened while saving the course.');
-        });
+        if (isValidToUpdate()) {
+            courseActions.saveCourse(course).then(() => {
+                toast.success('Course saved.');
+                props.history.push('/courses');
+            }, () => {
+                toast.error('Something error happened while saving the course.');
+            });
+        }
     }
 
     React.useEffect(() => {
@@ -66,6 +94,7 @@ const UpdateCoursePage = (props: Props) => {
                 course={course}
                 onChangeHandler={onChangeHandler}
                 onSubmitHandler={onSubmitHandler}
+                errors={errors}
             />
         </>
     );

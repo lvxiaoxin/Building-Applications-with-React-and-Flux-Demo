@@ -15,7 +15,6 @@ const CoursesPage = (props: Props) => {
     const [courses, setCourses] = React.useState<ICourse[]>(courseStore.getCourseStore());
 
     React.useEffect(() => {
-        debugger;
         courseStore.addChangeListener(onChange);
         if (courseStore.getCourseStore().length === 0) {
             courseActions.loadCourses();
@@ -24,7 +23,6 @@ const CoursesPage = (props: Props) => {
     }, []);
 
     function onChange() {
-        debugger;
         setCourses(courseStore.getCourseStore());
     }
 
