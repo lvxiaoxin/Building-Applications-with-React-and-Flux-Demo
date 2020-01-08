@@ -75,7 +75,6 @@ const UpdateCoursePage = (props: Props) => {
         if (courses.length === 0) {
             courseActions.loadCourses();
         } else if (slug) {
-            debugger;
             const newCourse = courseStore.getCourseStoreBySlug(slug);
             if (newCourse) {
                 setCourse(newCourse);
