@@ -14,21 +14,20 @@ interface Props {
 }
 
 const CourseForm = (props: Props) => {
-    let titleError: string = '';
-    let authorError: string = '';
-    let categoryError: string = '';
+    const [titleErrorMessage, setTitleErrorMessage] = React.useState<string>('');
+    const [authorErrorMessage, setAuthorErrorMessage] = React.useState<string>('');
+    const [categoryErrorMessage, setCategoryErrorMessage] = React.useState<string>('');
 
-    props.errors.forEach((error: IError, index: number) => {
-        if (error.errorName === 'title') {
-            titleError = error.errorMessage;
-        } else if (error.errorName === 'author') {
-            authorError = error.errorMessage;
-        } else if (error.errorName === 'category') {
-            categoryError = error.errorMessage;
-        } else {
-            console.log('No error for updating course.');
-        }
-    })
+    React.useEffect(() => {
+        const titleError = props.errors.find((error: IError) => error.errorName === 'title')
+        const authorError = props.errors.find((error: IError) => error.errorName === 'author')
+        const categoryError = props.errors.find((error: IError) => error.errorName === 'category')
+
+        titleError ? setTitleErrorMessage(titleError.errorMessage) : setTitleErrorMessage('');
+        authorError ? setAuthorErrorMessage(authorError.errorMessage) : setAuthorErrorMessage('');
+        categoryError ? setCategoryErrorMessage(categoryError.errorMessage) : setCategoryErrorMessage('');
+    }, [props.errors]);
+
 
     return (
         <form onSubmit={props.onSubmitHandler}>
@@ -39,8 +38,8 @@ const CourseForm = (props: Props) => {
                 name='title'
                 value={props.course.title}
             />
-            {titleError && (
-                <div className='alert alert-danger'>{titleError}</div>
+            {titleErrorMessage && (
+                <div className='alert alert-danger'>{titleErrorMessage}</div>
             )}
 
             <SelectInput
@@ -50,8 +49,8 @@ const CourseForm = (props: Props) => {
                 name='authorId'
                 value={props.course.authorId}
             />
-            {authorError && (
-                <div className='alert alert-danger'>{authorError}</div>
+            {authorErrorMessage && (
+                <div className='alert alert-danger'>{authorErrorMessage}</div>
             )}
 
             <TextInput
@@ -61,8 +60,8 @@ const CourseForm = (props: Props) => {
                 name='category'
                 value={props.course.category}
             />
-            {categoryError && (
-                <div className='alert alert-danger'>{categoryError}</div>
+            {categoryErrorMessage && (
+                <div className='alert alert-danger'>{categoryErrorMessage}</div>
             )}
 
             <button type='submit' value='Save' className='btn btn-primary'>{labelStrings.submit}</button>
